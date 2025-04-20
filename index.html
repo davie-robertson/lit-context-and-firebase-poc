@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Context POC</title>
+  </head>
+  <body>
+    <h1>Context POC</h1>
+    <h2>Context Provider & Context Consumer</h2>
+    <p>
+      The <code>user-provider</code> component provides the context to its
+      children. in this case, the <code>user-profile</code> component.
+    </p>
+    <p>
+      <p>
+        The following is an example of how to use the <code>user-provider</code> and <code>user-profile</code> components:
+      </p>
+      <pre>
+        <code>
+          &lt;user-provider&gt;
+            &lt;user-profile&gt;&lt;/user-profile&gt;
+          &lt;/user-provider&gt;
+        </code>
+      </pre>    <!--
+     <user-provider> is the context provider component
+     <user-profile> is a consumer component
+     -->
+    <user-provider><user-profile></user-profile></user-provider>
+
+    <!-- the <user-profile> component cannot be used outside of the <user-provider> component -->
+    <h2>Context Consumer</h2>
+    <p>
+      the <code>user-profile</code> component will not work unless it is wrapped in a <code>user-provider</code> component.
+    </p>
+    <user-profile></user-profile>
+
+    <script type="module" src="/src/components/user-provider.js"></script>
+    <script type="module" src="/src/components/user-profile.js"></script>
+  </body>
+</html>

@@ -1,0 +1,36 @@
+{
+  "name": "lit-context-and-firebase-poc",
+  "version": "1.0.0",
+  "main": "index.html",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build"
+  },
+  "keywords": [
+    "lit",
+    "@lit/context",
+    "firebase",
+    "firestore",
+    "context management",
+    "reactive components",
+    "web components"
+  ],
+  "author": "Davie Robertson",
+  "license": "MIT",
+  "description": "A proof-of-concept project demonstrating the use of the @lit/context library to manage context between components with Firebase Firestore integration.",
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "@lit/context": "^1.1.5",
+    "@material/web": "^2.3.0",
+    "firebase": "^11.6.0",
+    "lit": "^3.3.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.8.3",
+    "vite": "^6.3.2"
+  },
+  "homepage": "https://davie.com",
+  "bugs": {
+    "email": "me@davie.com"
+  }
+}
