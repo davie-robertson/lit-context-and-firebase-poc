@@ -45,8 +45,8 @@ export class UserProfile extends LitElement {
       <md-elevated-card class="card">
         <div class="headline">${this.userData.id}</div>
         <div class="content">
-          ${this.userData.name}<br>
-          ${this.userData.email}
+          ${this.userData.name ? this.userData.name : 'Name not available'}<br>
+          ${this.userData.email ? this.userData.email : 'Email not available'}
           <md-filled-button @click=${this.signOut}>Sign Out</md-filled-button>
         </div>
       </md-elevated-card>

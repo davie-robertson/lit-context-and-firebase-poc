@@ -107,9 +107,16 @@ context-poc/
 │       ├── firebase-config.ts
 ```
 
-## Notes
-- Ensure that your Firebase project is properly configured with Firestore and Authentication.
-- The `.env` file should not be committed to version control. Add it to `.gitignore` to keep it secure.
+## Important Notes
+
+- Ensure that your Firebase project has Firestore enabled.
+- To add `name` and `email` fields to a user document:
+  1. Open the Firebase Console.
+  2. Navigate to Firestore Database.
+  3. Locate the `users` collection.
+  4. Select a user document and add `name` and `email` fields if they are missing.
+
+- The application will display "Name not available" or "Email not available" if these fields are not present.
 
 ## License
 This project is licensed under the MIT License.
