@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Context POC</title>
+
   </head>
   <body>
     <h1>Context POC</h1>
@@ -35,7 +36,41 @@
     </p>
     <user-profile></user-profile>
 
+    <!-- Login/Logout controls -->
+    <div id="auth-controls">
+      <md-filled-button id="login-btn">Login with Google</md-filled-button>
+      <md-filled-button id="logout-btn">Logout</md-filled-button>
+    </div>
+
     <script type="module" src="/src/components/user-provider.js"></script>
     <script type="module" src="/src/components/user-profile.js"></script>
+    <script type="module">
+      import { GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from 'firebase/auth';
+      import { auth } from './src/libs/firebase-config.js';
+      import '@material/web/button/filled-button.js';
+      const loginBtn = document.getElementById('login-btn');
+      const logoutBtn = document.getElementById('logout-btn');
+      loginBtn.addEventListener('click', async () => {
+        const provider = new GoogleAuthProvider();
+        try {
+          await signInWithPopup(auth, provider);
+        } catch (error) {
+          console.error('Login failed:', error);
+        }
+      });
+      logoutBtn.addEventListener('click', () => {
+        auth.signOut();
+      });
+      // Show/hide buttons based on auth state
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          loginBtn.style.display = 'none';
+          logoutBtn.style.display = '';
+        } else {
+          loginBtn.style.display = '';
+          logoutBtn.style.display = 'none';
+        }
+      });
+    </script>
   </body>
 </html>

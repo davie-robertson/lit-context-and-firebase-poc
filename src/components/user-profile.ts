@@ -2,17 +2,14 @@
  * A LitElement-based web component that displays a user profile card.
  * 
  * This component consumes user data from a context and displays the user's
- * ID, name, and email. If no user data is available, it provides a button
- * to log in using Google authentication. When user data is available, it
- * displays the user's information along with a button to sign out.
- * 
+ * ID, name, and email. If no user data is available, it shows a message indicating
+ * that no context is available. The component uses Material Design's elevated
+ * card component to create a visually appealing card layout.
+ *     
  * @customElement user-profile
  * @extends {LitElement}
  * 
  * @property {UserData | null} userData - The user data consumed from the context.
- * 
- * @method login - Initiates the Google login process using Firebase authentication.
- * @method signOut - Signs the user out of the application.
  * 
  * @csspart card - Styles the card container.
  * @csspart headline - Styles the headline section of the card.
@@ -22,10 +19,7 @@ import { LitElement, html, css } from 'lit';
 import { customElement } from 'lit/decorators.js';
 import { consume } from '@lit/context';
 import { userContext, UserData } from '../contexts/user-context';
-import { auth } from '../libs/firebase-config';
-import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import '@material/web/labs/card/elevated-card';
-import '@material/web/button/filled-button.js';
 
 @customElement('user-profile')
 export class UserProfile extends LitElement {
@@ -54,39 +48,26 @@ export class UserProfile extends LitElement {
 
   render() {
     if (!this.userData) {
-      // If no user data is available, display a login button.
+      // If no user data is available, just show a message.
       return html`
-        <p>No user data available.</p>
-        <md-filled-button @click=${this.login}
-          >Login with Google</md-filled-button
-        >
+        <md-elevated-card class="card">
+          <div class="headline">No Context Available</div>
+          <div class="content">
+            No user data available.
+          </div>
+        </md-elevated-card>
       `;
     }
-    // If user data is available, display the user's profile information and a sign-out button.
+    // If user data is available, display the user's profile information.
     return html`
       <md-elevated-card class="card">
         <div class="headline">${this.userData.id}</div>
         <div class="content">
           ${this.userData.name ? this.userData.name : 'Name not available'}<br>
           ${this.userData.email ? this.userData.email : 'Email not available'}
-          <md-filled-button @click=${this.signOut}>Sign Out</md-filled-button>
         </div>
       </md-elevated-card>
     `;
   }
 
-  private async login() {
-    // Initiates the Google login process using Firebase authentication.
-    const provider = new GoogleAuthProvider();
-    try {
-      await signInWithPopup(auth, provider);
-    } catch (error) {
-      console.error('Login failed:', error);
-    }
-  }
-
-  private signOut() {
-    // Signs the user out of the application.
-    auth.signOut();
-  }
 }
